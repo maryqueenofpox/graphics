@@ -38,7 +38,6 @@ private:
 	GameState _gameState;
 	Mesh monkeyMesh;
 	Mesh bananaMesh;
-	Mesh sunMesh;
 	Texture swordTexture;
 	Mesh swordMesh;
 	Camera myCamera;

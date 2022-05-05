@@ -44,7 +44,6 @@ void MainGame::initSystems()
 	monkeyMesh.loadModel("..\\res\\monkey3.obj");
 	bananaMesh.loadModel("..\\res\\banana.obj");
 	swordMesh.loadModel("..\\res\\sword.obj");
-	sunMesh.loadModel("..\\res\\sun.obj");
 
 	fogShader.init("..\\res\\fogShader.vert", "..\\res\\fogShader.frag"); //new shader
 	toonShader.init("..\\res\\shaderToon.vert", "..\\res\\shaderToon.frag"); //new shader
