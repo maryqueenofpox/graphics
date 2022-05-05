@@ -1,0 +1,9 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Lab2.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  MainGame.cpp
+F:\Uni Year 3\Graphics Programming\Coursework\graphics\Lab7Solution\Lab7Solution\Lab1\MainGame.cpp(20,9): warning C4930: 'Shader rimShader(void)': prototyped function not called (was a variable definition intended?)
+F:\Uni Year 3\Graphics Programming\Coursework\graphics\Lab7Solution\Lab7Solution\Lab1\MainGame.cpp(21,9): warning C4930: 'Shader geoShader(void)': prototyped function not called (was a variable definition intended?)
+F:\Uni Year 3\Graphics Programming\Coursework\graphics\Lab7Solution\Lab7Solution\Lab1\MainGame.cpp(19,9): warning C4930: 'Shader toonShader(void)': prototyped function not called (was a variable definition intended?)
+F:\Uni Year 3\Graphics Programming\Coursework\graphics\Lab7Solution\Lab7Solution\Lab1\MainGame.cpp(18,9): warning C4930: 'Shader fogShader(void)': prototyped function not called (was a variable definition intended?)
+F:\Uni Year 3\Graphics Programming\Coursework\graphics\Lab7Solution\Lab7Solution\Lab1\MainGame.cpp(22,9): warning C4930: 'Shader reflectionShader(void)': prototyped function not called (was a variable definition intended?)
+F:\Uni Year 3\Graphics Programming\Coursework\graphics\Lab7Solution\Lab7Solution\Lab1\MainGame.cpp(24,9): warning C4930: 'Shader customShader(void)': prototyped function not called (was a variable definition intended?)
+  Lab1.vcxproj -> F:\Uni Year 3\Graphics Programming\Coursework\graphics\Lab7Solution\Lab7Solution\Debug\Lab1.exe
