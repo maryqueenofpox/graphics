@@ -37,6 +37,7 @@ private:
 	Display _gameDisplay;
 	GameState _gameState;
 	Mesh monkeyMesh;
+	Texture bananaTexture;
 	Mesh bananaMesh;
 	Texture swordTexture;
 	Mesh swordMesh;

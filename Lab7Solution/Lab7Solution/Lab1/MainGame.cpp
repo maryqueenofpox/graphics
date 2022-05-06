@@ -38,8 +38,6 @@ void MainGame::run()
 void MainGame::initSystems()
 {
 	_gameDisplay.initDisplay(); 
-	//whistle = audioDevice.loadSound("..\\res\\bang.wav");
-	//backGroundMusic = audioDevice.loadSound("..\\res\\background.wav");
 	
 	monkeyMesh.loadModel("..\\res\\monkey3.obj");
 	bananaMesh.loadModel("..\\res\\banana.obj");
@@ -51,6 +49,7 @@ void MainGame::initSystems()
 	reflectionShader.init("..\\res\\shaderReflection.vert", "..\\res\\shaderReflection.frag");
 
 	swordTexture.init("..\\res\\swordTexture.png");
+	bananaTexture.init("..\\res\\bananatexture.jpg");
 	basicShader.init("..\\res\\basicShader.vert", "..\\res\\basicShader.frag");
 
 	customShader.init("..\\res\\customShader.vert", "..\\res\\customShader.frag");
@@ -119,23 +118,6 @@ bool MainGame::collision(glm::vec3 m1Pos, float m1Rad, glm::vec3 m2Pos, float m2
 	}
 }
 
-//void MainGame::playAudio(unsigned int Source, glm::vec3 pos)
-//{
-//	
-//	ALint state; 
-//	alGetSourcei(Source, AL_SOURCE_STATE, &state);
-//	/*
-//	Possible values of state
-//	AL_INITIAL
-//	AL_STOPPED
-//	AL_PLAYING
-//	AL_PAUSED
-//	*/
-//	if (AL_PLAYING != state)
-//	{
-//		audioDevice.playSound(Source, pos);
-//	}
-//}
 
 void MainGame::linkFogShader()
 {
@@ -208,13 +190,6 @@ void MainGame::drawGame()
 {
 	_gameDisplay.clearDisplay(0.8f, 0.8f, 0.8f, 1.0f); //sets our background colour
 	
-//	linkFogShader();
-	//linkToon();
-//	linkRimLighting();
-//	linkReflection();
-
-	
-
 	transformMonkey.SetPos(glm::vec3(-1.5, -sinf(counter), -2.0));
 	transformMonkey.SetRot(glm::vec3(0.0, counter * 5, 0.0));
 	transformMonkey.SetScale(glm::vec3(0.6, 0.6, 0.6));
@@ -243,7 +218,7 @@ void MainGame::drawGame()
 	bananaMesh.updateSphereData(*transformBanana.GetPos(), 0.62f);
 
 	transformSword.SetPos(vec3(2.0, 1 + sinf(counter), 0.0));
-	transformSword.SetRot(vec3(-90.0, counter * 5, 0.0));
+	transformSword.SetRot(vec3(-90.0, 0.0, counter * 2));
 	transformSword.SetScale(vec3(0.05, 0.05, 0.05));
 
 	geoShader.Bind();
