@@ -321,7 +321,6 @@ glm::vec3 OBJModel::ParseOBJVec3(const std::string& line)
     
     return glm::vec3(x,y,z);
 
-    //glm::vec3(atof(tokens[1].c_str()), atof(tokens[2].c_str()), atof(tokens[3].c_str()))
 }
 
 glm::vec2 OBJModel::ParseOBJVec2(const std::string& line)

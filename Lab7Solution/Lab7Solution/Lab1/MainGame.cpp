@@ -10,19 +10,18 @@ Transform transformSword;
 Transform transformSun;
 
 using namespace glm;
+using namespace std;
 
 MainGame::MainGame()
 {
 	_gameState = GameState::PLAY;
 	Display* _gameDisplay = new Display(); //new display
 	Shader fogShader();
-	Shader toonShader();
 	Shader rimShader();
 	Shader geoShader();
 	Shader reflectionShader();
 
 	Shader customShader();
-	//Audio* audioDevice();
 }
 
 MainGame::~MainGame()
@@ -48,7 +47,7 @@ void MainGame::initSystems()
 	rimShader.init("..\\res\\shaderRim.vert", "..\\res\\shaderRim.frag");
 	reflectionShader.init("..\\res\\shaderReflection.vert", "..\\res\\shaderReflection.frag");
 
-	swordTexture.init("..\\res\\swordTexture.png");
+	swordTexture.init("..\\res\\swordShader.png");
 	bananaTexture.init("..\\res\\bananatexture.jpg");
 	basicShader.init("..\\res\\basicShader.vert", "..\\res\\basicShader.frag");
 
@@ -56,11 +55,11 @@ void MainGame::initSystems()
 
 	geoShader.initGeo();
 
-	myCamera.initCamera(glm::vec3(0, 0, -5), 70.0f, (float)_gameDisplay.getWidth()/_gameDisplay.getHeight(), 0.01f, 1000.0f);
+	myCamera.initCamera(vec3(0, 0, -5), 70.0f, (float)_gameDisplay.getWidth()/_gameDisplay.getHeight(), 0.01f, 1000.0f);
 
 	counter = 1.0f;
 
-	vector<std::string> faces
+	vector<string> skyfaces
 	{
 		"..\\res\\skybox\\right.jpg",
 		"..\\res\\skybox\\left.jpg",
@@ -70,7 +69,7 @@ void MainGame::initSystems()
 		"..\\res\\skybox\\back.jpg"
 	};
 
-	skybox.init(faces);
+	skybox.init(skyfaces);
 
 }
 
@@ -81,7 +80,6 @@ void MainGame::gameLoop()
 		processInput();
 		drawGame();
 		collision(monkeyMesh.getSpherePos(), monkeyMesh.getSphereRadius(), bananaMesh.getSpherePos(), bananaMesh.getSphereRadius());
-		//playAudio(backGroundMusic, glm::vec3(0.0f,0.0f,0.0f));
 	}
 }
 
@@ -102,14 +100,12 @@ void MainGame::processInput()
 }
 
 
-bool MainGame::collision(glm::vec3 m1Pos, float m1Rad, glm::vec3 m2Pos, float m2Rad)
+bool MainGame::collision(vec3 m1Pos, float m1Rad, vec3 m2Pos, float m2Rad)
 {
-	float distance = glm::sqrt((m2Pos.x - m1Pos.x)*(m2Pos.x - m1Pos.x) + (m2Pos.y - m1Pos.y)*(m2Pos.y - m1Pos.y) + (m2Pos.z - m1Pos.z)*(m2Pos.z - m1Pos.z));
+	float distance = sqrt((m2Pos.x - m1Pos.x)*(m2Pos.x - m1Pos.x) + (m2Pos.y - m1Pos.y)*(m2Pos.y - m1Pos.y) + (m2Pos.z - m1Pos.z)*(m2Pos.z - m1Pos.z));
 
 	if (distance < (m1Rad + m2Rad))
 	{
-		//audioDevice.setlistener(myCamera.getPos(), m1Pos); //add bool to mesh
-		//playAudio(whistle, m1Pos);
 		return true;
 	}
 	else
@@ -118,14 +114,11 @@ bool MainGame::collision(glm::vec3 m1Pos, float m1Rad, glm::vec3 m2Pos, float m2
 	}
 }
 
-
 void MainGame::linkFogShader()
 {
-	//fogShader.setMat4("u_pm", myCamera.getProjection());
-	//fogShader.setMat4("u_vm", myCamera.getProjection());
 	fogShader.setFloat("maxDist", 20.0f);
 	fogShader.setFloat("minDist", 0.0f);
-	fogShader.setVec3("fogColor", glm::vec3(0.0f, 0.0f, 0.0f));
+	fogShader.setVec3("fogColor", vec3(0.0f, 0.0f, 0.0f));
 }
 
 void MainGame::linkReflection()
@@ -137,30 +130,9 @@ void MainGame::linkReflection()
 	reflectionShader.setVec3("cameraPos", myCamera.getPos());
 }
 
-
-void MainGame::linkToon()
-{
-	toonShader.setVec3("lightDir", transformMonkey.getPos());
-
-}
-
 void MainGame::linkGeo()
 {
-
-
-	float randX = ((float)rand() / (RAND_MAX));
-	float randY = ((float)rand() / (RAND_MAX));
-	float randZ = ((float)rand() / (RAND_MAX));
-	// Frag: uniform float randColourX; uniform float randColourY; uniform float randColourZ;
-	geoShader.setFloat("randColourX", randX);
-	geoShader.setFloat("randColourY", randY);
-	geoShader.setFloat("randColourZ", randZ);
-	// Geom: uniform float time;
-
-	//geoShader.setInt("image", swordTexture.Bind(0));
 	geoShader.setFloat("time", counter);
-
-
 }
 
 void MainGame::linkCustomShader()
@@ -168,9 +140,8 @@ void MainGame::linkCustomShader()
 	customShader.setMat4("projection", myCamera.getProjection());
 	customShader.setMat4("view", myCamera.getView());
 	customShader.setMat4("model", transformBanana.GetModel());
-	customShader.setVec3("lightColour", glm::vec3(1.0f, 1.0f, 1.0f));
-	customShader.setVec3("objectColour", glm::vec3(0.55f, 0.95f, 0.89f));
-	customShader.setVec3("lightPosition", transformMonkey.getPos());
+	customShader.setVec3("lightColour", vec3(1.0f, 1.0f, 1.0f));
+	customShader.setVec3("lightPosition", myCamera.getPos());
 	customShader.setVec3("viewPosition", myCamera.getPos());
 }
 
@@ -183,16 +154,16 @@ void MainGame::linkRimLighting()
 	rimShader.setMat4("u_vm", myCamera.getView());
 	rimShader.setMat4("model", transformMonkey.GetModel());
 	rimShader.setMat4("view", myCamera.getView());
-	rimShader.setVec3("lightDir", glm::vec3(0.5f, 0.5f, 0.5f));
+	rimShader.setVec3("lightDir", vec3(0.5f, 0.5f, 0.5f));
 }
 
 void MainGame::drawGame()
 {
 	_gameDisplay.clearDisplay(0.8f, 0.8f, 0.8f, 1.0f); //sets our background colour
 	
-	transformMonkey.SetPos(glm::vec3(-1.5, -sinf(counter), -2.0));
-	transformMonkey.SetRot(glm::vec3(0.0, counter * 5, 0.0));
-	transformMonkey.SetScale(glm::vec3(0.6, 0.6, 0.6));
+	transformMonkey.SetPos(vec3(-1.5, -sinf(counter), -1.0));
+	transformMonkey.SetRot(vec3(0.0, counter * 5, 0.0));
+	transformMonkey.SetScale(vec3(0.6, 0.6, 0.6));
 
 	reflectionShader.Bind();
 	linkReflection();
@@ -201,19 +172,16 @@ void MainGame::drawGame()
 	monkeyMesh.draw();
 	monkeyMesh.updateSphereData(*transformMonkey.GetPos(), 0.62f);
 
-	transformBanana.SetPos(vec3(0.0, 0.0, 2.0));
+	transformBanana.SetPos(vec3(0.0, 0.0, sinf(counter)));
 	transformBanana.SetRot(vec3(0.0, 0.0, 0.0));
 	transformBanana.SetScale(vec3(0.01, 0.01, 0.01));
 
-	//toonShader.Bind();
-	//linkToon();
-	//toonShader.Update(transformBanana, myCamera);
 
 	customShader.Bind();
 	linkCustomShader();
 	customShader.Update(transformBanana, myCamera);
 
-	//bananaTexture.Bind(0);
+	bananaTexture.Bind(0);
 	bananaMesh.draw();
 	bananaMesh.updateSphereData(*transformBanana.GetPos(), 0.62f);
 
@@ -224,11 +192,7 @@ void MainGame::drawGame()
 	geoShader.Bind();
 	linkGeo();
 	geoShader.Update(transformSword, myCamera);
-	//swordTexture.Bind(0);
-
-	//customShader.Bind();
-	//swordTexture.Bind(0);
-	//geoShader.Update(transformSword, myCamera);
+	swordTexture.Bind(0);
 
 	swordMesh.draw();
 	swordMesh.updateSphereData(*transformSword.GetPos(), 0.62f);

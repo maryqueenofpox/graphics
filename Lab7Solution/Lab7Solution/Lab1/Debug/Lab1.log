@@ -2,8 +2,7 @@
   MainGame.cpp
 F:\Uni Year 3\Graphics Programming\Coursework\graphics\Lab7Solution\Lab7Solution\Lab1\MainGame.cpp(20,9): warning C4930: 'Shader rimShader(void)': prototyped function not called (was a variable definition intended?)
 F:\Uni Year 3\Graphics Programming\Coursework\graphics\Lab7Solution\Lab7Solution\Lab1\MainGame.cpp(21,9): warning C4930: 'Shader geoShader(void)': prototyped function not called (was a variable definition intended?)
-F:\Uni Year 3\Graphics Programming\Coursework\graphics\Lab7Solution\Lab7Solution\Lab1\MainGame.cpp(19,9): warning C4930: 'Shader toonShader(void)': prototyped function not called (was a variable definition intended?)
-F:\Uni Year 3\Graphics Programming\Coursework\graphics\Lab7Solution\Lab7Solution\Lab1\MainGame.cpp(18,9): warning C4930: 'Shader fogShader(void)': prototyped function not called (was a variable definition intended?)
+F:\Uni Year 3\Graphics Programming\Coursework\graphics\Lab7Solution\Lab7Solution\Lab1\MainGame.cpp(19,9): warning C4930: 'Shader fogShader(void)': prototyped function not called (was a variable definition intended?)
 F:\Uni Year 3\Graphics Programming\Coursework\graphics\Lab7Solution\Lab7Solution\Lab1\MainGame.cpp(22,9): warning C4930: 'Shader reflectionShader(void)': prototyped function not called (was a variable definition intended?)
 F:\Uni Year 3\Graphics Programming\Coursework\graphics\Lab7Solution\Lab7Solution\Lab1\MainGame.cpp(24,9): warning C4930: 'Shader customShader(void)': prototyped function not called (was a variable definition intended?)
   Lab1.vcxproj -> F:\Uni Year 3\Graphics Programming\Coursework\graphics\Lab7Solution\Lab7Solution\Debug\Lab1.exe

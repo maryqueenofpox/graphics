@@ -11,6 +11,8 @@
 
 enum class GameState{PLAY, EXIT};
 
+using namespace glm;
+
 class MainGame
 {
 public:
@@ -26,13 +28,11 @@ private:
 	void gameLoop();
 	void drawGame();
 	void linkFogShader();
-	void linkToon();
 	void linkRimLighting();
 	void linkGeo();
 	void linkCustomShader();
 	void linkReflection();
-	bool collision(glm::vec3 m1Pos, float m1Rad, glm::vec3 m2Pos, float m2Rad);
-	//void playAudio(unsigned int Source, glm::vec3 pos);
+	bool collision(vec3 m1Pos, float m1Rad, vec3 m2Pos, float m2Rad);
 
 	Display _gameDisplay;
 	GameState _gameState;
@@ -42,26 +42,23 @@ private:
 	Texture swordTexture;
 	Mesh swordMesh;
 	Camera myCamera;
+
+
+
+	Shader basicShader;
+	Shader shaderSkybox;
 	Shader fogShader;
 	Shader toonShader;
 	Shader rimShader;
-	
-	Shader geoShader;
+
 	Shader customShader;
-	Shader basicShader;
-	Shader shaderSkybox;
+	Shader geoShader;
 	Shader reflectionShader;
 
-
-//	Texture swordTexture;
-	
 	Skybox skybox;
 
-	Skybox sword;
-
-	vector<std::string> faces;
 	
-	//Audio audioDevice;
+
 
 	float counter;
 	unsigned int whistle;
