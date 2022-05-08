@@ -43,12 +43,9 @@ private:
 	Mesh swordMesh;
 	Camera myCamera;
 
-
-
 	Shader basicShader;
 	Shader shaderSkybox;
 	Shader fogShader;
-	Shader toonShader;
 	Shader rimShader;
 
 	Shader customShader;
@@ -57,11 +54,7 @@ private:
 
 	Skybox skybox;
 
-	
-
 
 	float counter;
-	unsigned int whistle;
-	unsigned int backGroundMusic;
 };
 

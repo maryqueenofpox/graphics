@@ -2,20 +2,14 @@
 #version 400
 //Layout Qualifer
 layout( location = 0 ) out vec4 fragcolor;
-//Uniform variable
-uniform float randColourX;
-uniform float randColourY;
-uniform float randColourZ;
+
  
 varying vec2 TexCoords;
-
-uniform sampler2D diffuse;
+uniform sampler2D swordTexture;
 
 
 void main()
 {
-//Setting each vector component to uniform varaible then setting final colour
-//	vec4 color;
-//	color = vec4(randColourX,randColourY,randColourZ,1.0);
-    fragcolor = texture2D(diffuse, TexCoords);
+    //Setting each vector component to uniform varaible then setting final colour
+    fragcolor = texture2D(swordTexture, TexCoords);
 }
