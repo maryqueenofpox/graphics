@@ -1,48 +1,63 @@
 #version 330 core
 
 uniform vec3 lightPosition;
-uniform vec3 lightColour;
 uniform vec3 viewPosition;
 
-float specularStrength = 0.5;
-float ambientStrength = 0.1;
+float specularStrength = 0.5; //Strength of specular light
 
-in vec3 Position;
-in vec3 fragPosition;
-in vec4 normal;
+in vec3 fragPosition; //from customShader.vert
+in vec4 normal; //from customShader.vert
 
-uniform sampler2D texture;
+uniform sampler2D texture; //texture of model
 varying vec2 texCoord0;
 
-out vec4 fragColor;
+out vec4 fragColor; //final colour of object
 
 void main()
 { 
 
+     vec3 lightDirection = normalize(lightPosition - fragPosition); //light direction from source to model
+     vec3 normPos = normalize(fragPosition); //normal position of fragments
+
+     /*
+     Calculation for the diffuse lighting along the model
+     */
+     float diffuseAmount = max(dot(normPos, lightDirection), 0.2);
+     vec3 diffuseLight = diffuseAmount * vec3(1.0, 1.0, 1.0);
+
+     /*
+     Setting the value for ambient lighting along the model
+     */
+     vec3 ambientLight = vec3(0.1, 0.1, 0.1);
+
+     /*
+     Calculating light intensity for toon-shading effect allowing for pop-in of texture colour
+     */
      float lightIntensity;
-	 vec4 color;
-
-     vec3 normPos = normalize(Position);
-     vec3 lightDirection = normalize(lightPosition - fragPosition);
-     float diff = max(dot(normPos, lightDirection), 0.2);
-
-
-     vec3 diffuseLight = lightColour * diff;
-     vec3 ambientLight = lightColour * ambientStrength;
-
+	 vec4 objectColour;
      lightIntensity = dot(lightDirection, normPos);
 
 	if (lightIntensity > 0.4)
-		color = vec4(1.0,1.0,0.1,1.0);
+		objectColour = vec4(1.0,1.0,0.1,1.0);
 	else
-		color = vec4(0.5,0.2,0.0,1.0);
+		objectColour = vec4(0.5,0.2,0.0,1.0);
 
+     /*
+     Calculation for the specular light on the model
+     */
      vec3 viewDirection = normalize(viewPosition - fragPosition);
      vec3 reflectDirection = reflect(lightDirection, normPos);
-     float spec = pow(max(dot(viewDirection, reflectDirection), 0.0), 2);
+     float specularAmount = pow(max(dot(viewDirection, reflectDirection), 0.0), 2);
 
-     vec3 specularLight = specularStrength * spec * lightColour;
+     vec3 specularLight = specularStrength * specularAmount * vec3(1.0, 1.0, 1.0);
 
-     vec3 result = (diffuseLight + ambientLight + specularLight);
-     fragColor = (vec4(result, 1.0)) * color * texture2D(texture, texCoord0);   
+     /*
+     Calculation for the final ADS effect
+     */
+     vec3 combinedLight = (diffuseLight + ambientLight + specularLight);
+
+     /*
+     Final colour, multiplying toon-shading effect with ADS lighting effect, and the object's texture
+     */
+     fragColor = objectColour * (vec4(combinedLight, 1.0)) * texture2D(texture, texCoord0);   
 }

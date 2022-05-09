@@ -77,7 +77,7 @@ void MainGame::gameLoop()
 	while (_gameState != GameState::EXIT)
 	{
 		processInput();
-		drawGame();
+		drawScene();
 		collision(monkeyMesh.getSpherePos(), monkeyMesh.getSphereRadius(), bananaMesh.getSpherePos(), bananaMesh.getSphereRadius());
 	}
 }
@@ -137,11 +137,11 @@ void MainGame::linkGeo()
 
 void MainGame::linkCustomShader()
 {
-	customShader.setMat4("projection", myCamera.getProjection());
-	customShader.setMat4("view", myCamera.getView());
-	customShader.setMat4("model", transformBanana.GetModel());
-	customShader.setVec3("lightColour", vec3(1.0f, 1.0f, 1.0f));
-	customShader.setVec3("lightPosition", myCamera.getPos());
+	customShader.setMat4("bananaModel", transformBanana.GetModel());
+	customShader.setMat4("cameraProjection", myCamera.getProjection());
+	customShader.setMat4("cameraView", myCamera.getView());
+
+	customShader.setVec3("lightPosition", myCamera.getPos()); //can be mapped to the position of any game object
 	customShader.setVec3("viewPosition", myCamera.getPos());
 }
 
@@ -157,7 +157,7 @@ void MainGame::linkRimLighting()
 	rimShader.setVec3("lightDir", vec3(0.5f, 0.5f, 0.5f));
 }
 
-void MainGame::drawGame()
+void MainGame::drawScene()
 {
 	_gameDisplay.clearDisplay(0.8f, 0.8f, 0.8f, 1.0f); //sets background colour
 	

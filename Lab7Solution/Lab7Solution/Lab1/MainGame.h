@@ -26,7 +26,7 @@ private:
 	void initSystems();
 	void processInput();
 	void gameLoop();
-	void drawGame();
+	void drawScene();
 	void linkFogShader();
 	void linkRimLighting();
 	void linkGeo();
